@@ -1,6 +1,6 @@
 Flask==2.1.2      # Flask web framework
-numpy==1.23.5     # Compatible version of numpy for Python 3.12
-scipy==1.10.1     # Compatible version of scipy for Python 3.12
+numpy==1.23.5     # Compatible numpy version with Python 3.12
+scipy==1.10.1     # Compatible scipy version with Python 3.12
 pyswarm==0.1      # Particle Swarm Optimization (PSO) library
 # Optional for visualization if needed:
 # seaborn==0.11.2  # Lightweight statistical data visualization
