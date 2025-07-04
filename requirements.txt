@@ -1,5 +1,5 @@
 Flask==2.1.2      # Minimal web framework to serve the API
-numpy==1.21.6     # Efficient numerical operations
+numpy==1.23.5     # Compatible version of numpy for Python 3.12
 scipy==1.7.3      # Advanced optimization and statistics tools
 pyswarm==0.1      # Particle Swarm Optimization (PSO) library
 # Optional for visualization if needed:
