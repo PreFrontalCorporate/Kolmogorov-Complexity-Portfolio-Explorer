@@ -1,5 +1,7 @@
-flask
-numpy
-scipy
-pyswarm
-matplotlib
+Flask==2.1.2      # Minimal web framework to serve the API
+numpy==1.21.6     # Efficient numerical operations
+scipy==1.7.3      # Advanced optimization and statistics tools
+pyswarm==0.1      # Particle Swarm Optimization (PSO) library
+# Optional for visualization if needed:
+# seaborn==0.11.2  # Lightweight statistical data visualization
+# plotly==5.3.1    # Interactive visualizations (if required)
