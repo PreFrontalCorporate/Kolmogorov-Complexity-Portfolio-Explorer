@@ -12,6 +12,7 @@ def compute_CVaR(weights, returns_data, alpha=0.05):
     cvar = portfolio_returns[portfolio_returns <= var].mean()
     return cvar
 
+
 # Calculate Tail Risk using Generalized Pareto Distribution (GPD)
 def compute_tail_risk(returns_data, threshold=0.05):
     excess_returns = returns_data[returns_data > threshold] - threshold
