@@ -3,23 +3,24 @@ from flask import Flask, request, jsonify
 from scipy.optimize import dual_annealing
 from pyswarm import pso
 
-from api.utils import compute_VaR, compute_CVaR  # Assuming these are in utils.py
+from api.utils import compute_VaR, compute_CVaR
 
 app = Flask(__name__)
 
-# ----------------------------
+# -----------------------------------
 # Objective Function
-# ----------------------------
-def objective_function(weights, cov_matrix, expected_returns, lambda_0, lambda_1):
-    risk = np.dot(weights.T, np.dot(cov_matrix, weights))  # Portfolio risk
-    return_ = np.dot(weights.T, expected_returns)          # Portfolio return
-    sparsity = lambda_0 * np.count_nonzero(weights)        # L0 penalty
-    magnitude = lambda_1 * np.sum(np.abs(weights))         # L1 penalty
+# -----------------------------------
+def objective_function(weights, *args):
+    cov_matrix, expected_returns, lambda_0, lambda_1 = args
+    risk = np.dot(weights.T, np.dot(cov_matrix, weights))
+    return_ = np.dot(weights.T, expected_returns)
+    sparsity = lambda_0 * np.count_nonzero(weights)
+    magnitude = lambda_1 * np.sum(np.abs(weights))
     return risk - return_ + sparsity + magnitude
 
-# ----------------------------
+# -----------------------------------
 # Simulated Annealing Optimizer
-# ----------------------------
+# -----------------------------------
 def optimize_portfolio_sa(X, lambda_0, lambda_1):
     n_assets = X.shape[1]
     lb = np.zeros(n_assets)
@@ -37,9 +38,9 @@ def optimize_portfolio_sa(X, lambda_0, lambda_1):
     )
     return result_sa.x
 
-# ----------------------------
-# Particle Swarm Optimizer
-# ----------------------------
+# -----------------------------------
+# Particle Swarm Optimizer (Optional)
+# -----------------------------------
 def optimize_portfolio_pso(X, lambda_0, lambda_1):
     n_assets = X.shape[1]
     lb = np.zeros(n_assets)
@@ -60,9 +61,9 @@ def optimize_portfolio_pso(X, lambda_0, lambda_1):
     )
     return optimal_weights
 
-# ----------------------------
+# -----------------------------------
 # API Endpoint
-# ----------------------------
+# -----------------------------------
 @app.route('/optimize', methods=['POST'])
 def optimize_portfolio():
     data = request.json
@@ -71,10 +72,8 @@ def optimize_portfolio():
     lambda_0 = data['lambda_0']
     lambda_1 = data['lambda_1']
 
-    # Choose optimization method: SA or PSO (here default is SA)
     optimized_weights = optimize_portfolio_sa(returns_data, lambda_0, lambda_1)
 
-    # Compute risk metrics
     var = compute_VaR(optimized_weights, returns_data)
     cvar = compute_CVaR(optimized_weights, returns_data)
 
@@ -86,8 +85,8 @@ def optimize_portfolio():
         }
     })
 
-# ----------------------------
-# Run App
-# ----------------------------
+# -----------------------------------
+# Run
+# -----------------------------------
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
