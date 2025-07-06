@@ -5,7 +5,7 @@ import numpy as np
 from scipy.optimize import dual_annealing
 from pyswarm import pso
 
-from api.utils import compute_VaR, compute_CVaR
+from .utils import compute_VaR, compute_CVaR
 
 kolmogorov_bp = Blueprint("kolmogorov", __name__)
 
