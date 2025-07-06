@@ -1,10 +1,9 @@
-# kolmogorov_app/api/optimize.py
-
 from flask import Blueprint, request, jsonify
 import numpy as np
 from scipy.optimize import dual_annealing
 from pyswarm import pso
 
+# 🔥 Change this import!
 from .utils import compute_VaR, compute_CVaR
 
 kolmogorov_bp = Blueprint("kolmogorov", __name__)
